@@ -1,0 +1,25 @@
+body{background: #333;color: #ccc;}
+.search-form-row{border-bottom: 1px solid #696163;padding-bottom: 15px;}
+.loading{padding: 25px;}
+.loadingImg{-webkit-box-shadow: 0px -1px 13px 0px #ff4747;-moz-box-shadow: 0px -1px 13px 0px #ff4747;box-shadow: 0px -1px 13px 0px #ff4747; width: 400px;}
+.result-general {margin-bottom: 5px;}
+.table th .fa{color: #f5f5f5;}
+.input-serv{
+        background: none;
+        padding: 5px 10px;
+        margin: 3px 0px;
+        border: 1px solid rgba(136,0,0,1);
+        border-width: 1px 0 1px 0;
+        text-align: center;
+}
+
+/*BS overwrite*/
+.btn,.form-control{border-radius: 0;}
+.table th{color: rgba(136,0,0,1)  ;font-size: 16px;}
+.table>thead>tr>th {border-bottom-color: #fba7a7;}
+.table-hover>tbody>tr:hover {background-color: rgba(136,0,0,.2)}
+
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #5d2d2d;
+}
+.table-bordered {border: 1px solid #5d2d2d;color: #237979;}

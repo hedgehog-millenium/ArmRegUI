@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ArmReg UI</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--Angular stuff-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>       
+    <script src="controllers/registerCtrl.js"></script>
+    <script src="controllers/indexCntr.js"></script>
+    <script src="app.js"></script>
+    
+</head>
+<body ng-app="armRegApp">
+    <!--Navigation-->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <a class="navbar-brand" href="#">ArmReg</a>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Link</a></li>          
+        </ul>
+    </nav>
+    <!--END Navigation-->
+  
+    <!--Body-->    
+    <div class="container" ng-controller="registerCtrl">
+        
+        <div class="row search-form-row">            
+            <form name="searchForm" class="form-inline" role="form">                
+                <div class="form-group">                    
+                    <label class="sr-only" for="">Search Text</label>                    
+                    <input type="text" class="form-control" placeholder="Search Text" ng-model="serachText" required>
+                </div>
+                                        
+                <button type="submit" class="btn btn-danger" ng-click="searchPerson()">
+                  <i class="fa fa-search" aria-hidden="true"></i> Search
+                </button>
+            </form>            
+        </div>
+                
+        <div class="row loading text-center" ng-show="loading">
+            <h1 class="text-danger">LOADING ...</h1>
+            <!--<img src="./src/Loading-Full.gif" alt="Loading" class="loadingImg img-circle">                -->
+            <img src="./src/Loading3.gif" alt="Loading" class="loadingImg img-circle">                
+            <h1 class="text-danger">PLEASE WAIT ...</h1>
+        </div>     
+        <div class="row search-result-row" ng-hide="loading">                              
+            <br>                            
+            <div class="result-general">
+                <div class="pull-right">                    
+                    <span class="label label-info"><i class="fa fa-umbrella" aria-hidden="true"></i> Visible: {{registry.length}}</span>                    
+                    <span class="label label-danger"><i class="fa fa-umbrella" aria-hidden="true"></i> Total: {{registry.length}}</span>
+                </div>                
+                <div class="clearfix"></div>   
+            </div>                          
+            <input type="text" class="input-serv" placeholder="Search in table" ng-model="filterText">              
+            <table class="table table-hover table-bordered" id="tblResult" >
+                <thead>                    
+                        <th><i class="fa fa-user-o" aria-hidden="true"></i>
+                            <span ng-click="sortType = 'full_name'; sortReverse = !sortReverse">
+                                Full Name
+                                <span ng-show="sortType == 'full_name' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'full_name' && sortReverse" class="fa fa-caret-up"></span>
+                            </span>
+                         </th>
+                        <th><i class="fa fa-calendar" aria-hidden="true"></i>
+                           <span ng-click="sortType = 'birth'; sortReverse = !sortReverse">
+                                Birth
+                                <span ng-show="sortType == 'birth' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'birth' && sortReverse" class="fa fa-caret-up"></span>
+                            </span>
+                        </th>
+                        <th><i class="fa fa-address-card-o" aria-hidden="true"></i>
+                            <span ng-click="sortType = 'address'; sortReverse = !sortReverse">
+                                Address
+                                <span ng-show="sortType == 'address' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'address' && sortReverse" class="fa fa-caret-up"></span>
+                            </span>
+                        </th>
+                        <th><i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <span ng-click="sortType = 'area'; sortReverse = !sortReverse">
+                                Area
+                                <span ng-show="sortType == 'area' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'area' && sortReverse" class="fa fa-caret-up"></span>
+                            </span>
+                        
+                        </th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="r in registry | orderBy:sortType:sortReverse|filter:filterText">
+                        <td>{{r.full_name}}</td>
+                        <td>{{r.birth}}</td>
+                        <td><span style="cursor:pointer" ng-click="serachByAdress(r.address)">{{r.address}}</span></td>
+                        <td>{{r.area}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        
+    </div>    
+    <!--END Body-->
+</body>
+</html>
