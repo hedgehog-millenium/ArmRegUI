@@ -11,7 +11,10 @@ body{background: #333;color: #ccc;}
         border: 1px solid rgba(136,0,0,1);
         border-width: 1px 0 1px 0;
         text-align: center;
+        font-family: FontAwesome;
 }
+
+.margin-right-5{margin-right:5px;}
 
 /*BS overwrite*/
 .btn,.form-control{border-radius: 0;}

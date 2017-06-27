@@ -53,12 +53,12 @@
             <br>                            
             <div class="result-general">
                 <div class="pull-right">                    
-                    <span class="label label-info"><i class="fa fa-umbrella" aria-hidden="true"></i> Visible: {{registry.length}}</span>                    
-                    <span class="label label-danger"><i class="fa fa-umbrella" aria-hidden="true"></i> Total: {{registry.length}}</span>
+                    <span class="label label-info margin-right-5"><i class="fa fa-eye" aria-hidden="true"></i> Visible: {{filtered.length}} </span>                    
+                    <span class="label label-danger"><i class="fa fa-database" aria-hidden="true"></i> Total: {{registry.length}}</span>
                 </div>                
                 <div class="clearfix"></div>   
             </div>                          
-            <input type="text" class="input-serv" placeholder="Search in table" ng-model="filterText">              
+            <input type="text" class="input-serv" placeholder="&#xF002; Search In Table" ng-model="filterText">              
             <table class="table table-hover table-bordered" id="tblResult" >
                 <thead>                    
                         <th><i class="fa fa-user-o" aria-hidden="true"></i>
@@ -93,7 +93,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="r in registry | orderBy:sortType:sortReverse|filter:filterText">
+                    <tr ng-repeat="r in registry | orderBy:sortType:sortReverse|filter:filterText as filtered">
                         <td>{{r.full_name}}</td>
                         <td>{{r.birth}}</td>
                         <td><span style="cursor:pointer" ng-click="serachByAdress(r.address)">{{r.address}}</span></td>
