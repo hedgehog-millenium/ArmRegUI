@@ -6,9 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ArmReg UI</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    
     <!--Angular stuff-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>       
     <script src="controllers/registerCtrl.js"></script>
@@ -40,7 +43,19 @@
                 <button type="submit" class="btn btn-danger" ng-click="searchPerson()">
                   <i class="fa fa-search" aria-hidden="true"></i> Search
                 </button>
-            </form>            
+            </form>     
+                   
+            <br>
+            <div class="alert alert-danger" role="alert" ng-show="error" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                <strong>Error !</strong> Status Code: {{ error.status }} , StatusText: {{ error.statusText}}
+                <p>{{error.data.message}}</p>
+                
+            </div>
         </div>
                 
         <div class="row loading text-center" ng-show="loading">

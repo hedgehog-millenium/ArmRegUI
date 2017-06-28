@@ -2,6 +2,15 @@ const mongojs = require('mongojs')
 const config = require('../config')
 db = mongojs(config.db.path,config.db.collections)
 const collection = config.db.collections[0]
+const dbConnected = true
+
+db.on('error', function(err) {
+   console.log('database connections error.', err)      
+});
+
+db.on('timeout', function (err) {
+    console.log('database timeout');
+});
 
 module.exports = {
     SearchRegister:SearchRegister,    
@@ -10,11 +19,12 @@ module.exports = {
 }
 
 
-function SearchRegister(criteria){
-    return new Promise((resolve,reject)=>{        
-        db[collection].find({$text:{$search:criteria}},{score:{$meta:"textScore"}}).sort({score:{$meta:"textScore"}}).limit(500,(err,docs)=>{            
+function SearchRegister(criteria){    
+    return new Promise((resolve,reject)=>{                
+        db[collection].find({$text:{$search:criteria}},{score:{$meta:"textScore"}}).sort({score:{$meta:"textScore"}}).limit(500,(err,docs)=>{                     
             err?reject(err):resolve(docs);            
         })   
+        
     })   
 }
 

@@ -14,9 +14,8 @@ router.post('/', function(req, res, next) {
    searchText = req.body.searchText  
    repo.SearchRegister(searchText).then(docs=>{
      res.send(docs);
-   }).catch(err=>{
-      console.log(err)
-      res.status(503).send(err);
+   }).catch(err=>{     
+      res.status(503).send({message:'Please check Database connection !'});
    })   
 })
 
@@ -24,9 +23,8 @@ router.post('/searchByAdress',(req,res,next)=>{
     srch_address = req.body.address
     repo.SearchByAdress(srch_address).then(docs=>{
         res.send(docs);
-    }).catch(err=>{
-        console.log(err)
-        res.status(503).send(err);
+    }).catch(err=>{        
+        res.status(503).send({err});
     })   
 });
 

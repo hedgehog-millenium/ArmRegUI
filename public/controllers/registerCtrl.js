@@ -7,10 +7,10 @@ var registerCtrl = function($scope,$http){
         $scope.registry = response.data        
         $scope.loading = false
     }
-    function errorCallback(error){
-        console.log(error)
+    function errorCallback(error){        
+        $scope.error =  error        
+        console.warn(error);
         $scope.loading = false
-        alert('Status Code: ' + error.status +', statusText: '+error.statusText)
     }
     $scope.searchPerson = function(){
         var srchText = $scope.serachText
