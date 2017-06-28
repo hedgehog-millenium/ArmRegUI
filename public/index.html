@@ -31,22 +31,32 @@
     <!--END Navigation-->
   
     <!--Body-->    
-    <div class="container" ng-controller="registerCtrl">
+    <div class="container" ng-controller="registerCtrl" ng-cloak>
         
         <div class="row search-form-row">            
+                        
+            
             <form name="searchForm" class="form-inline" role="form">                
-                <div class="form-group">                    
-                    <label class="sr-only" for="">Search Text</label>                    
-                    <input type="text" class="form-control" placeholder="Search Text" ng-model="serachText" required>
-                </div>
-                                        
-                <button type="submit" class="btn btn-danger" ng-click="searchPerson()">
-                  <i class="fa fa-search" aria-hidden="true"></i> Search
-                </button>
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-info  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{sereachType.name}} <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="" ng-click="changeSerach(1)">{{sereachTypes[1].name}}</a></li>
+                            <li><a href="" ng-click="changeSerach(2)">{{sereachTypes[2].name}}</a></li>
+                            <!--<li><a href="" ng-click="changeSerach(3)">{{sereachTypes[3].name}}</a></li>
+                            <li><a href="" ng-click="changeSerach(4)">{{sereachTypes[4].name}}</a></li>-->
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" ng-click="changeSerach(0)">{{sereachTypes[0].name}}</a></li>
+                        </ul>
+                    </div><!-- /btn-group -->
+                    <input type="text" class="form-control mainSearchInp" placeholder="Search" value="կոմիտաս" ng-model="serachText" required>
+                    <span class="input-group-btn">                        
+                        <button type="submit" class="btn btn-danger" ng-click="searchPerson()"><i class="fa fa-search" aria-hidden="true"></i> Search!</button>
+                    </span>
+                </div><!--/input-group-->                                                                                  
             </form>     
-                   
-            <br>
-            <div class="alert alert-danger" role="alert" ng-show="error" >
+                               
+            <div class="alert alert-danger error-display" role="alert" ng-show="error" >
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

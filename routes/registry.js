@@ -28,6 +28,17 @@ router.post('/searchByAdress',(req,res,next)=>{
     })   
 });
 
+router.post('/SearchByFieldValue',(req,res,next)=>{
+    fld_name = req.body.field
+    schText = req.body.searchText    
+    repo.SearchByFieldValue(fld_name,schText).then(docs=>{
+        res.send(docs);
+    }).catch(err=>{        
+        res.status(503).send({err});
+    })   
+});
+
+
 module.exports = router;
 
 

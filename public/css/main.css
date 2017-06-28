@@ -4,6 +4,7 @@ body{background: #333;color: #ccc;}
 .loadingImg{-webkit-box-shadow: 0px -1px 13px 0px #ff4747;-moz-box-shadow: 0px -1px 13px 0px #ff4747;box-shadow: 0px -1px 13px 0px #ff4747; width: 400px;}
 .result-general {margin-bottom: 5px;}
 .table th .fa{color: #f5f5f5;}
+.mainSearchInp{font-style: italic;width:250px !important}
 .input-serv{
         background: none;
         padding: 5px 10px;
@@ -14,6 +15,7 @@ body{background: #333;color: #ccc;}
         font-family: FontAwesome;
 }
 
+.error-display{margin-top: 25px;}
 .margin-right-5{margin-right:5px;}
 
 /*BS overwrite*/

@@ -1,8 +1,19 @@
 var registerCtrl = function($scope,$http){
     $scope.sortType     = ''; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
-
     $scope.serachText = 'կոմիտաս'    
+    $scope.sereachTypes = [            
+            {value:'full_name',name:'Full Name'},
+            // {value:'first_name',name:'First Name'},
+            // {value:'last_name',name:'Last Name'},
+            {value:'birth',name:'Birth Date'},            
+            {value:'address',name:'Address'}
+        ]
+    $scope.sereachType = $scope.sereachTypes[0]
+
+    $scope.changeSerach = function(idx){
+        $scope.sereachType =  $scope.sereachTypes[idx]
+    }
     function successCallback(response){        
         $scope.registry = response.data        
         $scope.loading = false
@@ -12,14 +23,17 @@ var registerCtrl = function($scope,$http){
         console.warn(error);
         $scope.loading = false
     }
-    $scope.searchPerson = function(){
+    $scope.searchPerson = function(){        
         var srchText = $scope.serachText
 
-        if(typeof(srchText) != 'undefined' && srchText.length>3){
+        if(typeof(srchText) != 'undefined' && srchText.length>2){
             $scope.loading = true
-            $http.post('/registry',{'searchText':srchText}).then(successCallback,errorCallback)            
+            if($scope.sereachType.value =='full_name')
+                $http.post('/registry',{'searchText':srchText}).then(successCallback,errorCallback)            
+            else
+                $http.post('/registry/SearchByFieldValue',{'field':$scope.sereachType.value,'searchText':srchText}).then(successCallback,errorCallback)            
         }else{
-            alert('Search Text Length Shold be more than 3 characters')            
+            alert('Search Text Length Shold be more than 2 characters')            
         }
     }    
     $scope.serachByAdress=function(address){
