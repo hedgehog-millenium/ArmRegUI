@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const repo = require('../repo/RegistersRepoMongo')
+const converter = require('../modules/usa-arm-converter')
 
 router.get('/', function(req, res, next) {
-  searchString = 'կոմիտաս'
+  text = req.query.text  
+  convertedText = converter.convertToArm(text)  
+  res.send(convertedText)
   // db = mongojs(config.db.path,config.db.collections)
   // db.arm_register.find({$text:{$search:"կոմիտաս"}},{score:{$meta:"textScore"}}).sort({score:{$meta:"textScore"}},(err,docs)=>{
   //     res.send(docs);
