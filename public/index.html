@@ -49,11 +49,18 @@
                             <li><a href="#" ng-click="changeSerach(0)">{{sereachTypes[0].name}}</a></li>
                         </ul>
                     </div><!-- /btn-group -->
-                    <input type="text" class="form-control mainSearchInp" placeholder="Search" value="կոմիտաս" ng-model="serachText" required>
+                    <input type="text" class="form-control mainSearchInp" placeholder="Search" value="կոմիտաս" ng-model="searchText" required>
                     <span class="input-group-btn">                        
                         <button type="submit" class="btn btn-danger" ng-click="searchPerson()"><i class="fa fa-search" aria-hidden="true"></i> Search!</button>
                     </span>
-                </div><!--/input-group-->                                                                                  
+                </div><!--/input-group-->                 
+                <div class="serach-criteria-display" ng-show="searchText">
+                    <strong class="scd-key text-muted">Search text:</strong>
+                    <strong class="scd-val text-muted">{{searchText}}</strong>                                                                                 
+                    <br>
+                    <strong class="scd-key text-muted">Search field:</strong>
+                    <strong class="scd-val text-muted">{{sereachType.name}}</strong>                                                                                 
+                </div>
             </form>     
                                
             <div class="alert alert-danger error-display" role="alert" ng-show="error" >

@@ -24,7 +24,6 @@ function SearchRegister(criteria){
         db[collection].find({$text:{$search:criteria}},{score:{$meta:"textScore"}}).sort({score:{$meta:"textScore"}}).limit(1000,(err,docs)=>{                     
             err?reject(err):resolve(docs);            
         })   
-        
     })   
 }
 

@@ -14,6 +14,9 @@ body{background: #333;color: #ccc;}
         text-align: center;
         font-family: FontAwesome;
 }
+.serach-criteria-display{margin-top: 10px;}
+.scd-key,.scd-val{font-style: italic}
+.scd-val{border-bottom: 1px solid #880010;color: #0a7373}
 
 .error-display{margin-top: 25px;}
 .margin-right-5{margin-right:5px;}

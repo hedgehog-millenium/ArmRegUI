@@ -1,7 +1,7 @@
 var registerCtrl = function($scope,$http){
     $scope.sortType     = ''; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
-    $scope.serachText = 'կոմիտաս'    
+    $scope.searchText = 'կոմիտաս'    
     $scope.sereachTypes = [            
             {value:'full_name',name:'Full Name'},
             // {value:'first_name',name:'First Name'},
@@ -14,8 +14,10 @@ var registerCtrl = function($scope,$http){
     $scope.changeSerach = function(idx){
         $scope.sereachType =  $scope.sereachTypes[idx]
     }
-    function successCallback(response){        
-        $scope.registry = response.data        
+    function successCallback(response){                
+        $scope.registry = response.data.registries        
+        $scope.searchText = response.data.searchText
+        $scope.error = null
         $scope.loading = false
     }
     function errorCallback(error){        
@@ -24,7 +26,7 @@ var registerCtrl = function($scope,$http){
         $scope.loading = false
     }
     $scope.searchPerson = function(){        
-        var srchText = $scope.serachText
+        var srchText = $scope.searchText        
 
         if(typeof(srchText) != 'undefined' && srchText.length>2){
             $scope.loading = true
