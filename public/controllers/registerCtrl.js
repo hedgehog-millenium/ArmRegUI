@@ -16,7 +16,7 @@ var registerCtrl = function($scope,$http){
     }
     function successCallback(response){                
         $scope.registry = response.data.registries        
-        $scope.searchText = response.data.searchText
+        $scope.searchedText = response.data.searchText
         $scope.error = null
         $scope.loading = false
     }
@@ -25,9 +25,13 @@ var registerCtrl = function($scope,$http){
         console.warn(error);
         $scope.loading = false
     }
+    function clearLastSerach(){
+         $scope.searchedText = null
+    }
     $scope.searchPerson = function(){        
+        clearLastSerach()
         var srchText = $scope.searchText        
-
+            
         if(typeof(srchText) != 'undefined' && srchText.length>2){
             $scope.loading = true
             if($scope.sereachType.value =='full_name')
