@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-   searchText = req.body.searchText  
+   searchText = req.body.searchText.toLowerCase();  
    searchText = ImproveSearchText(searchText)
 
    repo.SearchRegister(searchText).then(docs=>{
@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
 })
 
 router.post('/searchByAdress',(req,res,next)=>{
-    srch_address = req.body.address    
+    srch_address = req.body.address.toLowerCase();    
     repo.SearchByAdress(srch_address).then(docs=>{
         res.send(CreateReturnObject(srch_address,docs));
     }).catch(err=>{        
@@ -32,7 +32,7 @@ router.post('/searchByAdress',(req,res,next)=>{
 
 router.post('/SearchByFieldValue',(req,res,next)=>{
     fld_name = req.body.field
-    schText = req.body.searchText    
+    schText = req.body.searchText.toLowerCase();   
     schText = ImproveSearchText(schText)
 
     repo.SearchByFieldValue(fld_name,schText).then(docs=>{
