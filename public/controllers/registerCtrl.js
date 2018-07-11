@@ -44,7 +44,8 @@ var registerCtrl = function($scope,$http){
     }    
     $scope.serachByAdress=function(address){
         $scope.loading = true
-        $http.post('/registry/searchByAdress',{'address':address}).then(successCallback,errorCallback)
+        // $http.post('/registry/searchByAdress',{'address':address}).then(successCallback,errorCallback)
+        $http.post('/registry/SearchByFieldValue',{'field':'address','searchText':address}).then(successCallback,errorCallback)
     }
 }
 

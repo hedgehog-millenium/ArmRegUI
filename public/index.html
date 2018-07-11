@@ -126,7 +126,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="r in registry | orderBy:sortType:sortReverse|filter:filterText as filtered">
-                        <td>{{r.full_name}}</td>
+                        <td>{{r.last_name}} {{r.first_name}} {{r.middle_name}}</td>
                         <td>{{r.birth}}</td>
                         <td><span style="cursor:pointer" ng-click="serachByAdress(r.address)">{{r.address}}</span></td>
                         <td>{{r.area}}</td>
