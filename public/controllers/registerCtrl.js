@@ -27,6 +27,7 @@ var registerCtrl = function($scope,$http){
     }
     function clearLastSerach(){
          $scope.searchedText = null
+         $scope.filterText = ''
     }
     $scope.searchPerson = function(){        
         clearLastSerach()
@@ -43,9 +44,10 @@ var registerCtrl = function($scope,$http){
         }
     }    
     $scope.serachByAdress=function(address){
+        clearLastSerach()
         $scope.loading = true
-        // $http.post('/registry/searchByAdress',{'address':address}).then(successCallback,errorCallback)
-        $http.post('/registry/SearchByFieldValue',{'field':'address','searchText':address}).then(successCallback,errorCallback)
+        $http.post('/registry/searchByAdress',{'address':address}).then(successCallback,errorCallback)
+        // $http.post('/registry/SearchByFieldValue',{'field':'address','searchText':address}).then(successCallback,errorCallback)
     }
 }
 

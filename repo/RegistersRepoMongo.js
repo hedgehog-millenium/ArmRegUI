@@ -28,14 +28,17 @@ function SearchRegister(criteria){
 }
 
 function SearchByAdress(searchAddress){
+    //replace regex vital simbols RegExp.escape(value) ,split by space (split(' ')) , filter empty elements in arrar (filter(Boolean)), attt regex any simbol mutch beetween words(join('.*'))
+    var schReg = creatSearchRegex(searchAddress)
+
     return new Promise((resolve,reject)=>{
-        db[collection].find({address:{$eq:searchAddress}}).limit(500,(err,docs)=>{
+        db[collection].find({address:schReg}).limit(500,(err,docs)=>{
             err?reject(err):resolve(docs);            
         })
     })
 }
 
-function SearchByFieldValue(field,value){   
+function SearchByFieldValue(field,value){    
     //replace regex vital simbols RegExp.escape(value) ,split by space (split(' ')) , filter empty elements in arrar (filter(Boolean)), attt regex any simbol mutch beetween words(join('.*'))
     var toRegexStyle = RegExp.escape(value)
     var schReg = new RegExp(toRegexStyle.split(' ').filter(Boolean).join('.*'),'i');    
@@ -44,6 +47,7 @@ function SearchByFieldValue(field,value){
         var query = {};
         query[field] = schReg    
         console.log(query)    
+        query[field] = schReg        
         db[collection].find(query).limit(1000,(err,docs)=>{
             err?reject(err):resolve(docs);            
         })
@@ -53,3 +57,9 @@ function SearchByFieldValue(field,value){
 RegExp.escape = function(string) {
   return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 };
+
+function creatSearchRegex(text){
+    var toRegexStyle = RegExp.escape(text)
+    var schReg = new RegExp(toRegexStyle.split(' ').filter(Boolean).join('\\s*'),'i');    
+    return schReg
+}
