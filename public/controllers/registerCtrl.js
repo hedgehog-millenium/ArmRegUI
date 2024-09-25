@@ -43,7 +43,7 @@ var registerCtrl = function ($scope, $http) {
             alert('Search Text Length Should be more than 2 characters')
         }
     }
-    $scope.searchByAdress = function (address) {
+    $scope.searchByAddress = function (address) {
         clearLastSearch()
         $scope.loading = true
         $http.post('/registry/searchByAddress', { 'address': address }).then(successCallback, errorCallback)

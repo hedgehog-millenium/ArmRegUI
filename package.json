@@ -11,10 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "bootstrap": "^3.3.7",
     "express": "^4.15.3",
     "mongodb": "^6.9.0",
-    "mongoose": "^4.10.8",
     "nodemon": "^3.1.7"
   }
 }

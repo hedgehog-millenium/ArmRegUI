@@ -1,9 +1,7 @@
-const mongojs = require('mongojs')
 const { MongoClient } = require('mongodb');
 const config = require('../config')
 
-// const db = mongojs(config.db.path, config.db.collections)
-
+const queryLimit = 1000;
 let db;
 let collection;
 
@@ -23,48 +21,28 @@ async function connectToMongo() {
 // Call the connection function to connect at startup
 connectToMongo();
 
-function SearchRegister(criteria) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const docs = await collection.find(
-                { $text: { $search: criteria } },
-                { score: { $meta: 'textScore' } }
-            ).sort({ score: { $meta: 'textScore' } }).limit(1000).toArray();
-            resolve(docs);
-        } catch (err) {
-            reject(err);
-        }
-    });
+const SearchRegistryAsync = (criteria) => {
+    return collection.find(
+        { $text: { $search: criteria } },
+        { score: { $meta: 'textScore' } }
+    ).sort({ score: { $meta: 'textScore' } }).limit(queryLimit).toArray();
 }
 
 
-function SearchByAddress(searchAddress) {
+const SearchByAddressAsync = (searchAddress) => {
     const schReg = createSearchRegex(searchAddress);
-    return new Promise(async (resolve, reject) => {
-        try {
-            const docs = await collection.find({ address: schReg }).limit(500).toArray();
-            resolve(docs);
-        } catch (err) {
-            reject(err);
-        }
-    });
+    return collection.find({ address: schReg }).limit(queryLimit).toArray();
 }
 
-function SearchByFieldValue(field, value) {
+const SearchByFieldValueAsync = (field, value) => {
     const toRegexStyle = RegExp.escape(value);
     const schReg = new RegExp(toRegexStyle.split(' ').filter(Boolean).join('.*'), 'i');
 
-    return new Promise(async (resolve, reject) => {
-        const query = {};
-        query[field] = schReg;
+    const query = {};
+    query[field] = schReg;
 
-        try {
-            const docs = await collection.find(query).limit(1000).toArray();
-            resolve(docs);
-        } catch (err) {
-            reject(err);
-        }
-    });
+    return collection.find(query).limit(queryLimit).toArray();
+
 }
 RegExp.escape = function (string) {
     return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
@@ -76,8 +54,4 @@ function createSearchRegex(text) {
     return schReg
 }
 
-module.exports = {
-    SearchRegister: SearchRegister,
-    SearchByAddress: SearchByAddress,
-    SearchByFieldValue: SearchByFieldValue
-}
+module.exports = { SearchRegistryAsync, SearchByAddressAsync, SearchByFieldValueAsync }

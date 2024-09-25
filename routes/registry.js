@@ -10,39 +10,45 @@ router.get('/', function (req, res, next) {
     res.send(convertedText)
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', async (req, res, next) => {
     let searchText = req.body.searchText.toLowerCase();
     searchText = ImproveSearchText(searchText)
 
-    repo.SearchRegister(searchText).then(docs => {
+    try {
+        const docs = await repo.SearchRegistryAsync(searchText)
         res.send(CreateReturnObject(searchText, docs));
-    }).catch(err => {
-        console.err(err)
+    } catch (err) {
+        console.log(err)
         res.status(503).send({ message: 'Please check Database connection !' });
-    })
+    }
+
 })
 
-router.post('/searchByAddress', (req, res, next) => {
-    srch_address = req.body.address.toLowerCase();
-    repo.SearchByAddress(srch_address).then(docs => {
+router.post('/searchByAddress', async (req, res, next) => {
+    const srch_address = req.body.address.toLowerCase();
+
+    try {
+        const docs = await repo.SearchByAddressAsync(srch_address)
         res.send(CreateReturnObject(srch_address, docs));
-    }).catch(err => {
-        console.err(err)
-        res.status(503).send({ err });
-    })
+    } catch (err) {
+        console.log(err)
+        res.status(503).send({ message: 'Please check Database connection !' });
+    }
 });
 
-router.post('/searchByFieldValue', (req, res, next) => {
-    fld_name = req.body.field
-    schText = req.body.searchText.toLowerCase();
+router.post('/searchByFieldValue', async (req, res, next) => {
+    const fld_name = req.body.field
+    let schText = req.body.searchText.toLowerCase();
     schText = ImproveSearchText(schText)
 
-    repo.SearchByFieldValue(fld_name, schText).then(docs => {
+    try {
+        const docs = await repo.SearchByFieldValueAsync(fld_name, schText);
         res.send(CreateReturnObject(schText, docs));
-    }).catch(err => {
-        console.err(err)
-        res.status(503).send({ err });
-    })
+    } catch (err) {
+        console.log(err)
+        res.status(503).send({ message: 'Please check Database connection !' });
+    }
+
 });
 
 function CreateReturnObject(schText, items) {
