@@ -5,8 +5,8 @@ const converter = require('../modules/usa-arm-converter')
 const languageDetector = require('../modules/language-detector')
 
 router.get('/', function (req, res, next) {
-    text = req.query.text
-    convertedText = converter.convertToArm(text)
+    const text = req.query.text
+    const convertedText = converter.convertToArm(text)
     res.send(convertedText)
 });
 
@@ -25,11 +25,11 @@ router.post('/', async (req, res, next) => {
 })
 
 router.post('/searchByAddress', async (req, res, next) => {
-    const srch_address = req.body.address.toLowerCase();
+    const search_address = req.body.address.toLowerCase();
 
     try {
-        const docs = await repo.SearchByAddressAsync(srch_address)
-        res.send(CreateReturnObject(srch_address, docs));
+        const docs = await repo.SearchByAddressAsync(search_address)
+        res.send(CreateReturnObject(search_address, docs));
     } catch (err) {
         console.log(err)
         res.status(503).send({ message: 'Please check Database connection !' });

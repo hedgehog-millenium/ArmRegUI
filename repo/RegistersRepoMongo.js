@@ -2,8 +2,7 @@ const { MongoClient } = require('mongodb');
 const config = require('../config')
 
 const queryLimit = 1000;
-let db;
-let collection;
+let db, collection;
 
 // Connect to MongoDB
 async function connectToMongo() {
@@ -44,14 +43,8 @@ const SearchByFieldValueAsync = (field, value) => {
     return collection.find(query).limit(queryLimit).toArray();
 
 }
-RegExp.escape = function (string) {
-    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
-};
+RegExp.escape = (string) => string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 
-function createSearchRegex(text) {
-    var toRegexStyle = RegExp.escape(text)
-    var schReg = new RegExp(toRegexStyle.split(' ').filter(Boolean).join('\\s*'), 'i');
-    return schReg
-}
+const createSearchRegex = (text) => RegExp(RegExp.escape(text).split(' ').filter(Boolean).join('\\s*'), 'i');
 
 module.exports = { SearchRegistryAsync, SearchByAddressAsync, SearchByFieldValueAsync }
