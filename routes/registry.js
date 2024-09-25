@@ -17,6 +17,7 @@ router.post('/', function (req, res, next) {
     repo.SearchRegister(searchText).then(docs => {
         res.send(CreateReturnObject(searchText, docs));
     }).catch(err => {
+        console.err(err)
         res.status(503).send({ message: 'Please check Database connection !' });
     })
 })
