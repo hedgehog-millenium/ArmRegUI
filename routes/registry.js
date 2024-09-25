@@ -27,6 +27,7 @@ router.post('/searchByAddress', (req, res, next) => {
     repo.SearchByAddress(srch_address).then(docs => {
         res.send(CreateReturnObject(srch_address, docs));
     }).catch(err => {
+        console.err(err)
         res.status(503).send({ err });
     })
 });
@@ -39,6 +40,7 @@ router.post('/searchByFieldValue', (req, res, next) => {
     repo.SearchByFieldValue(fld_name, schText).then(docs => {
         res.send(CreateReturnObject(schText, docs));
     }).catch(err => {
+        console.err(err)
         res.status(503).send({ err });
     })
 });
