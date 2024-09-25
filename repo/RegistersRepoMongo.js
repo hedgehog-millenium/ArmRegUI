@@ -20,12 +20,11 @@ async function connectToMongo() {
 // Call the connection function to connect at startup
 connectToMongo();
 
-const SearchRegistryAsync = (criteria) => {
-    return collection.find(
-        { $text: { $search: criteria } },
-        { score: { $meta: 'textScore' } }
-    ).sort({ score: { $meta: 'textScore' } }).limit(queryLimit).toArray();
-}
+const SearchRegistryAsync = (criteria) => collection.find(
+    { $text: { $search: criteria } },
+    { score: { $meta: 'textScore' } }
+).sort({ score: { $meta: 'textScore' } }).limit(queryLimit).toArray();
+
 
 
 const SearchByAddressAsync = (searchAddress) => {
